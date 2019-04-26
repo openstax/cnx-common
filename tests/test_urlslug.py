@@ -11,7 +11,6 @@ import pytest
 
 from cnxcommon.urlslug import generate_slug
 
-
 class TestSlugGenerator:
     def test_it_removes_html_tags(self):
         title = "<span class=\"os-number\"></span><span>sometext</span>"
@@ -54,7 +53,7 @@ class TestSlugGenerator:
 
     def test_it_replaces_unicode_chars_w_their_ascii_equivalent(self):
         title = "podręcznikfizykadlaszkółwyższych"
-        expected = "podrecznikfizykadlaszkowyzszych"
+        expected = "podrecznikfizykadlaszkolwyzszych"
         actual = generate_slug(title)
 
         assert expected == actual

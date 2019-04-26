@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
-from unicodedata import normalize
+
+from unidecode import unidecode
 
 
 def generate_slug(title):
@@ -17,9 +18,9 @@ def generate_slug(title):
     import html  # PY3
     # unescape html chars like '&amp;' becomes '&'
     title = html.unescape(title)
-    title = normalize("NFKD", title).encode(
-        "ascii", "ignore")  # replace unicode chars with ascii equivalents
-    title = title.decode("utf-8")   # back to string from bytes-like object
+
+    title = unidecode(title)  # replace unicode chars with ascii equivalents
+
     title = re.sub(r'[^a-z0-9 ]', ' ', title)  # remove special characters
     title = re.sub(r' +', '-', title)  # spaces to dashes
     title = title.strip("-")  # remove trailing dashes
