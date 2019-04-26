@@ -93,3 +93,29 @@ class TestSlugGenerator:
         actual = generate_slug(title)
 
         assert expected == actual
+
+    def test_it_can_identify_chapter_num_when_not_in_section_title(self):
+        """If the chapter number isn't present in the section title,
+        it can find it in the chapter title instead.
+        """
+        book_title = "college-physics"
+        chapter_title = "1 Introduction: The Nature of Science and Physics"
+        section_title = "problems-and-exercises"
+        expected = "1-problems-and-exercises"
+        actual = generate_slug(book_title, chapter_title=chapter_title, section_title=section_title)
+
+        assert expected == actual[1]
+
+    def test_when_chapter_number_not_present_in_section_nor_chapter_titles(self):
+        """What happens when (or if) a chapter number is not present in the chapter
+        title nor the section title.
+        """
+        # pass # TODO
+        book_title = "college-physics"
+        chapter_title = "Introduction: The Nature of Science and Physics"
+        section_title = "problems-and-exercises"
+        expected = "-problems-and-exercises" # TODO: ask the team if this a valid expectation
+        actual = generate_slug(
+            book_title, chapter_title=chapter_title, section_title=section_title)
+
+        assert expected == actual[1]
