@@ -75,7 +75,6 @@ class TestSlugGenerator:
     def test_using_generate_slug(self):
         title = "12.4 sometext"
         expected = "12-4-sometext"
-
         actual = generate_slug(title)
 
         assert expected == actual
@@ -110,12 +109,44 @@ class TestSlugGenerator:
         """What happens when (or if) a chapter number is not present in the chapter
         title nor the section title.
         """
-        # pass # TODO
         book_title = "college-physics"
         chapter_title = "Introduction: The Nature of Science and Physics"
         section_title = "problems-and-exercises"
-        expected = "-problems-and-exercises" # TODO: ask the team if this a valid expectation
+        expected = "problems-and-exercises"
         actual = generate_slug(
             book_title, chapter_title=chapter_title, section_title=section_title)
 
         assert expected == actual[1]
+
+    def test_slug_generator_integration_test(self):
+        """Integration-level test using the Acceptance Criteria described in:
+        https://github.com/openstax/cnx/issues/348
+        """
+        books = [
+            (
+                'College Physics',
+                '<span class="os-number">12.4</span><span class="os-divider"> </span><span class="os-text">Viscosity and Laminar Flow; Poiseuille\'s Law< /span >',
+                '<span class="os-number">12</span><span class="os-divider"> </span><span class="os-text">Fluid Dynamics and Its Biological and Medical Applications</span>',
+            ), (
+                'College Physics',
+                '<span class="os-text">Problems &amp; Exercises</span>',
+                '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">Introduction: The Nature of Science and Physics</span>',
+            ), (
+                'Biology 2e',
+                '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">The Science of Biology</span>',
+                '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">The Study of Life</span>',
+            ), (
+                'Biology 2e',
+                '<span class="os-text">Preface</span>',
+            ),
+        ]
+
+        expectations = [
+            ('college-physics', '12-4-viscosity-and-laminar-flow-poiseuille-s-law'),
+            ('college-physics', '1-problems-exercises'),
+            ('biology-2e', '1-1-the-science-of-biology'),
+            ('biology-2e', 'preface')
+        ]
+
+        for index, book in enumerate(books):
+            assert expectations[index] == generate_slug(*book)
