@@ -39,7 +39,7 @@ def generate_slug(book_title, section_title="", chapter_title=""):
 
     # allow generating a slug when only one argument is passed-in, essentially.
     if not section_title :
-        return book_title
+        return (book_title,)
 
     section_title = slugify(remove_html_tags(section_title))
     if re.match(r"^\d", section_title):  # if section title starts with a digit
@@ -49,7 +49,8 @@ def generate_slug(book_title, section_title="", chapter_title=""):
         # find chapter number in chapter title
         chapter_number = re.split(r"^([0-9\.]*)?(.*)$", chapter_title)[1]
         # update section title with the chapter number, only if found.
-        section_title = f"{chapter_number}-{section_title}" if chapter_number else f"{section_title}"
+        w_chapter_number = "{}-{}".format(chapter_number, section_title)
+        section_title = w_chapter_number if chapter_number else "{}".format(section_title)
 
     return (book_title, section_title)
 

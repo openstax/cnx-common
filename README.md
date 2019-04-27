@@ -6,7 +6,7 @@ A library of utilities used across CNX applications.
 
 ## urlslug
 
-Generates a URL slug for REX. # TODO
+Generates a URL slug for REX. See: https://github.com/openstax/cnx/issues/348
 
 # License
 
