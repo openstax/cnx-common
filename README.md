@@ -2,6 +2,12 @@
 
 A library of utilities used across CNX applications.
 
+# Utilities description
+
+## urlslug
+
+Generates a URL slug for REX. See: https://github.com/openstax/cnx/issues/348
+
 # License
 
 This software is subject to the provisions of the GNU Affero General
