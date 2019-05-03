@@ -8,6 +8,7 @@ See LICENSE.txt for details.
 """
 import os
 
+import versioneer
 from setuptools import setup, find_packages
 
 
@@ -29,11 +30,12 @@ extras_require = {
 with open('README.md', 'r') as readme:
     long_description = readme.read()
 
+
 setup(
     name='cnx-common',
     description='A library of utilities used across CNX applications.',
     long_description=long_description,
-    version='0.1.0',
+    version=versioneer.get_version(),
     author='Connexions team',
     author_email='info@cnx.org',
     url="https://github.com/openstax/cnx-common",
@@ -43,4 +45,5 @@ setup(
     install_requires=install_requires,
     extras_require=extras_require,
     include_package_data=True,
+    cmdclass=versioneer.get_cmdclass(),
 )
