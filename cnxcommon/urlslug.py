@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
-
 from slugify import slugify
+
+
+QUOTE_PATTERN = re.compile(r'[\']+')
 
 
 def generate_slug(book_title, *other_titles):
@@ -32,7 +34,11 @@ def generate_slug(book_title, *other_titles):
         book_title = slugify(remove_html_tags(book_title))
         return book_title
 
-    section_title = slugify(remove_html_tags(other_titles[-1]))
+    section_title = other_titles[-1]
+    # Remove any quotes from the textp
+    section_title = QUOTE_PATTERN.sub('', section_title)
+
+    section_title = slugify(remove_html_tags(section_title))
 
     if re.match(r"^\d", section_title):  # if section title starts with a digit
         # we must already have the chapter and section numbers
