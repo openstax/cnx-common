@@ -143,7 +143,7 @@ class TestSlugGenerator:
         ]
 
         expectations = [
-            '12-4-viscosity-and-laminar-flow-poiseuille-s-law',
+            '12-4-viscosity-and-laminar-flow-poiseuilles-law',
             '1-problems-exercises',
             '1-1-the-science-of-biology',
             'preface',
@@ -152,3 +152,17 @@ class TestSlugGenerator:
 
         for index, book in enumerate(books):
             assert expectations[index] == generate_slug(*book)
+
+    # https://github.com/openstax/cnx/issues/389
+    def test_removes_apostrophes(self):
+        titles = (
+            'University Physics Volume 2',
+            '<span class="os-text">Unit 2. Electricity and Magnetism</span>',
+            '<span class="os-number">9</span><span class="os-divider"> </span><span class="os-text">Current and Resistance</span>',
+            '<span class="os-number">9.4</span><span class="os-divider"> </span><span class="os-text">Ohm\'s Law</span>',
+        )
+
+        slug = generate_slug(*titles)
+
+        expected = '9-4-ohms-law'
+        assert expected == slug
