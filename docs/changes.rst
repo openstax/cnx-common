@@ -1,5 +1,9 @@
 
 
+1.0.1
+-----
+
+- Remove quotes from the slug text (#2)
 
 1.0.0
 -----
