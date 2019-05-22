@@ -1,5 +1,10 @@
 
 
+1.1.0
+-----
+
+- Move ident-hash parsing functionality from cnx-db to here (#3)
+
 1.0.1
 -----
 
