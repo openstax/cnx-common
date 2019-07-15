@@ -38,21 +38,23 @@ def generate_slug(book_title, *other_titles):
     # Remove any quotes from the textp
     section_title = QUOTE_PATTERN.sub('', section_title)
 
-    section_title = slugify(remove_html_tags(section_title))
+    result = remove_html_tags(section_title)
+    if not get_os_number(section_title):
+        # find the chapter number
+        for title in reversed(other_titles[:-1]):
+            number = get_os_number(title)
+            if number:
+                result = '{}-{}'.format(number, result)
+                break
 
-    if re.match(r"^\d", section_title):  # if section title starts with a digit
-        # we must already have the chapter and section numbers
-        return section_title
-    else:  # find the chapter number
-        try:
-            chapter_title = remove_html_tags(other_titles[-2])
-            chapter_number = re.split(r"^([0-9\.]*)?(.*)$", chapter_title)[1]
-            section_title = "{}-{}".format(chapter_number, section_title) if chapter_number else section_title
-        except IndexError:
-            pass  # chapter title not present
-
-        return section_title
+    return slugify(result)
 
 
 def remove_html_tags(title):
     return re.sub(r"<.*?>", "", title)
+
+
+def get_os_number(title):
+    m = re.search('<span class="os-number">([^<]+)</span>', title)
+    if m:
+        return m.group(1)
