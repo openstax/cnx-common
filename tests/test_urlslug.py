@@ -98,7 +98,7 @@ class TestSlugGenerator:
         it can find it in the chapter title instead.
         """
         book_title = "college-physics"
-        chapter_title = "1 Introduction: The Nature of Science and Physics"
+        chapter_title = '<span class="os-number">1</span> Introduction: The Nature of Science and Physics'
         section_title = "problems-and-exercises"
         expected = "1-problems-and-exercises"
         actual = generate_slug(book_title, chapter_title, section_title)
@@ -139,7 +139,25 @@ class TestSlugGenerator:
                 '<span class="os-text">Preface</span>',
             ), (
                 'Biology 2e',
-            ),
+            ), (
+                'A Study of How a Region Can Lever Participation',
+                '<span class="os-text">21st Century Economic Development</span>',
+            ), (
+                'A Study of How a Region Can Lever Participation',
+                '<span class="os-text">21st Century Economic Development</span>',
+                '<span class="os-text">Introduction</span>',
+            ), (
+                'Astronomy',
+                '<span class=\"os-number\">2</span><span class=\"os-divider\"> </span><span class=\"os-text\">Observing the Sky: The Birth of Astronomy</span>',
+                '<span class=\"os-text\">Exercises</span>',
+                '<span class=\"os-text\">Review Questions</span>',
+            ), (
+                'Astronomy',
+                '<span class=\"os-number\">2</span><span class=\"os-divider\"> </span><span class=\"os-text\">Observing the Sky: The Birth of Astronomy</span>',
+                '<span class=\"os-number\">2.1</span><span class=\"os-divider\"> </span><span class=\"os-text\">The Sky Above</span>',
+                '<span class=\"os-text\">Exercises</span>',
+                '<span class=\"os-text\">Review Questions</span>',
+            )
         ]
 
         expectations = [
@@ -148,6 +166,10 @@ class TestSlugGenerator:
             '1-1-the-science-of-biology',
             'preface',
             'biology-2e',
+            '21st-century-economic-development',
+            'introduction',
+            '2-review-questions',
+            '2-1-review-questions',
         ]
 
         for index, book in enumerate(books):
