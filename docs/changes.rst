@@ -1,4 +1,7 @@
+1.2.0
+-----
 
+- Include ancestor chapter number in url slug (#4)
 
 1.1.0
 -----
