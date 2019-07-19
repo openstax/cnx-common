@@ -1,3 +1,8 @@
+1.2.1
+-----
+
+- Add Jenkinsfile to automate release to pypi
+
 1.2.0
 -----
 
