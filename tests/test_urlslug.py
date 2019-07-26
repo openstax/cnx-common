@@ -188,3 +188,25 @@ class TestSlugGenerator:
 
         expected = '9-4-ohms-law'
         assert expected == slug
+
+    def test_handling_bytes(self):
+        titles = (
+            b'College Physics',
+            u'<span class="os-number">5</span><span class="os-divider"> </span><span class="os-text">'
+            u'Further Applications of Newton’s Laws: Friction, Drag, and Elasticity</span>'.encode('utf-8'),
+            u'<span class="os-text">Introduction: Further Applications of Newton’s Laws</span>'.encode('utf-8')
+        )
+
+        slug = generate_slug(*titles)
+        assert slug == '5-introduction-further-applications-of-newtons-laws'
+
+    def test_handling_unicode(self):
+        titles = (
+            u'College Physics',
+            u'<span class="os-number">5</span><span class="os-divider"> </span><span class="os-text">'
+            u'Further Applications of Newton’s Laws: Friction, Drag, and Elasticity</span>',
+            u'<span class="os-text">Introduction: Further Applications of Newton’s Laws</span>',
+        )
+
+        slug = generate_slug(*titles)
+        assert slug == '5-introduction-further-applications-of-newtons-laws'

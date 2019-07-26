@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 import re
+
 from slugify import slugify
+
+from . import utils
 
 
 QUOTE_PATTERN = re.compile(r'[\']+')
 
 
+@utils.ensure_unicode
 def generate_slug(book_title, *other_titles):
     """Generates a slug for a book title or a section title.
 
@@ -35,10 +39,12 @@ def generate_slug(book_title, *other_titles):
         return book_title
 
     section_title = other_titles[-1]
+    if isinstance(section_title, bytes):
+        section_title = section_title.decode('utf-8')
     # Remove any quotes from the textp
     section_title = QUOTE_PATTERN.sub('', section_title)
 
-    result = remove_html_tags(section_title)
+    result = slugify(remove_html_tags(section_title))
     if not get_os_number(section_title):
         # find the chapter number
         for title in reversed(other_titles[:-1]):
@@ -50,10 +56,12 @@ def generate_slug(book_title, *other_titles):
     return slugify(result)
 
 
+@utils.ensure_unicode
 def remove_html_tags(title):
     return re.sub(r"<.*?>", "", title)
 
 
+@utils.ensure_unicode
 def get_os_number(title):
     m = re.search('<span class="os-number">([^<]+)</span>', title)
     if m:
