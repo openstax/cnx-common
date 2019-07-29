@@ -1,3 +1,8 @@
+1.2.2
+-----
+
+- Fix unicode encode error when generating slugs (#5)
+
 1.2.1
 -----
 
