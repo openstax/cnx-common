@@ -210,3 +210,14 @@ class TestSlugGenerator:
 
         slug = generate_slug(*titles)
         assert slug == '5-introduction-further-applications-of-newtons-laws'
+
+    def test_discard_part_of_slug(self):
+        """Acceptance test for the criteria described in:
+        https://github.com/openstax/cnx/issues/972
+        """
+        book_title = "college-physics"
+        chapter_title = '<span class="os-throwaway">Chapter</span><span class="os-divider"> </span><span class="os-number">4</span><span class="os-divider"> </span><span class="os-text">Kinematics in 7 Dimensions</span>'
+        expected = "4-kinematics-in-7-dimensions"
+        actual = generate_slug(book_title, chapter_title)
+
+        assert expected == actual
