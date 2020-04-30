@@ -216,7 +216,18 @@ class TestSlugGenerator:
         https://github.com/openstax/cnx/issues/972
         """
         book_title = "college-physics"
-        chapter_title = '<span class="os-throwaway">Chapter</span><span class="os-divider"> </span><span class="os-number">4</span><span class="os-divider"> </span><span class="os-text">Kinematics in 7 Dimensions</span>'
+        chapter_title = '<span class="os-part-text">Chapter</span><span class="os-divider"> </span><span class="os-number">4</span><span class="os-divider"> </span><span class="os-text">Kinematics in 7 Dimensions</span>'
+        expected = "4-kinematics-in-7-dimensions"
+        actual = generate_slug(book_title, chapter_title)
+
+        assert expected == actual
+
+    def test_discard_part_of_slug_nested(self):
+        """Acceptance test for the criteria described in:
+        https://github.com/openstax/cnx/issues/972
+        """
+        book_title = "college-physics"
+        chapter_title = '<span class="os-wrapper-thingy"><span class="os-part-text">Chapter</span><span class="os-divider"> </span><span class="os-number">4</span><span class="os-divider"> </span></span><span class="os-text">Kinematics in 7 Dimensions</span>'
         expected = "4-kinematics-in-7-dimensions"
         actual = generate_slug(book_title, chapter_title)
 

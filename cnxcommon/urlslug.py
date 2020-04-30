@@ -58,7 +58,7 @@ def generate_slug(book_title, *other_titles):
 
 @utils.ensure_unicode
 def remove_html_tags(title):
-    tmp_title = re.sub(r'<span class="os-throwaway">([^<]+)</span>', "", title)
+    tmp_title = re.sub(r'<span class="os-part-text">([^<]+)</span>', "", title)
     return re.sub(r"<.*?>", "", tmp_title)
 
 
