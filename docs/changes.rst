@@ -1,3 +1,8 @@
+1.3.3
+-----
+
+- Add logic to ignore `os-part-text` elements during slug generation (#9)
+
 1.2.3
 -----
 
