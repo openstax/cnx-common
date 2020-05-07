@@ -64,6 +64,7 @@ def remove_html_tags(title):
 
 @utils.ensure_unicode
 def get_os_number(title):
-    m = re.search('<span class="os-number">([^<]+)</span>', title)
+    tmp_title = re.sub(r'<span class="os-part-text">([^<]+)</span>', "", title)
+    m = re.search('<span class="os-number">([^<]+)</span>', tmp_title)
     if m:
         return m.group(1)
