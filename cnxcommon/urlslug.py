@@ -7,6 +7,7 @@ from . import utils
 
 
 QUOTE_PATTERN = re.compile(r'[\']+')
+REMOVE_PART_PATTERN = re.compile(r'<span class="os-part-text">([^<]+)</span>')
 
 
 @utils.ensure_unicode
@@ -58,13 +59,13 @@ def generate_slug(book_title, *other_titles):
 
 @utils.ensure_unicode
 def remove_html_tags(title):
-    tmp_title = re.sub(r'<span class="os-part-text">([^<]+)</span>', "", title)
+    tmp_title = REMOVE_PART_PATTERN.sub('', title)
     return re.sub(r"<.*?>", "", tmp_title)
 
 
 @utils.ensure_unicode
 def get_os_number(title):
-    tmp_title = re.sub(r'<span class="os-part-text">([^<]+)</span>', "", title)
+    tmp_title = REMOVE_PART_PATTERN.sub('', title)
     m = re.search('<span class="os-number">([^<]+)</span>', tmp_title)
     if m:
         return m.group(1)
