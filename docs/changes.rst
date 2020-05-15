@@ -1,3 +1,13 @@
+1.3.5
+-----
+
+- Fix UnicodeEncodeError in slug generation (#12)
+
+1.3.4
+-----
+
+- Remove os-part-text from chapters also (#11)
+
 1.3.3
 -----
 
