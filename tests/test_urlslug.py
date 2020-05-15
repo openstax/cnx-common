@@ -233,3 +233,18 @@ class TestSlugGenerator:
         actual = generate_slug(book_title, chapter_title, section_title)
 
         assert expected == actual
+
+    def test_polish_book_slug(self):
+        """Test written based upon failure observed with Polish Physics
+        (col23946) per: https://github.com/openstax/cnx/issues/1000
+        """
+        book_title = 'Fizyka dla szkół wyższych. Tom 1'
+        other_titles = (
+            u'<span class="os-number">Cz\u0119\u015b\u0107 1</span><span class="os-divider"> </span><span data-type="" itemprop="" class="os-text">Cz\u0119\u015b\u0107 1. Mechanika</span>',
+            u'<span class="os-number">Rozdzia\u0142 1</span><span class="os-divider"> </span><span data-type="" itemprop="" class="os-text">Jednostki i miary</span>',
+            u'<span data-type="" itemprop="" class="os-text">Wst\u0119p</span>'
+        )
+        expected = "rozdzial-1-wstep"
+        actual = generate_slug(book_title, *other_titles)
+
+        assert expected == actual
