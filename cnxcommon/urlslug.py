@@ -51,7 +51,7 @@ def generate_slug(book_title, *other_titles):
         for title in reversed(other_titles[:-1]):
             number = get_os_number(title)
             if number:
-                result = '{}-{}'.format(number, result)
+                result = u'{}-{}'.format(number, result)
                 break
 
     return slugify(result)
