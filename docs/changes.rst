@@ -1,3 +1,8 @@
+1.3.6
+-----
+
+- Update python-slugify from 4.0.0 to 4.0.1 (#14)
+
 1.3.5
 -----
 
